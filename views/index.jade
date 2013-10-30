@@ -1,0 +1,209 @@
+extends bs3-layout
+
+block head
+  link(href='/assets/stylesheets/datepicker.css', rel='stylesheet')
+  title monimus search demo
+
+block content
+  #main.container
+    .row.search-results
+      .col-lg-3
+        .panel.panel-default.courses_facets.hide  
+          .panel-heading
+            | Courses
+          .panel-body
+            h5 Start Date
+            ul.start_date
+              li.facet-item.layout
+                .checkbox
+                  label
+                    input(type="checkbox")
+                    span.f_label Hola
+                    span &nbsp;
+                    span.count (10)
+            h5 Price
+            ul.price
+              li.facet-item.layout
+                .checkbox
+                  label
+                    input(type="checkbox")
+                    span.f_label Hola
+                    span &nbsp;
+                    span.count (10)
+            h5 Category
+            ul.categories
+              li.facet-item.layout
+                .checkbox
+                  label
+                    input(type="checkbox")
+                    span.f_label Hola
+                    span &nbsp;
+                    span.count (10)
+            h5 School
+            ul.school
+              li.facet-item.layout
+                .checkbox
+                  label
+                    input(type="checkbox")
+                    span.f_label Hola
+                    span &nbsp;
+                    span.count (10)
+      .col-lg-8.results
+        include include/orgs-list
+        include include/show-org
+        include include/show-course
+
+  .modal.fade#createOrgModal(tabindex="-1", role="dialog", aria-labelledby="createOrgModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Create Organization
+        .modal-body
+          form(role="form")
+            .form-group
+              label Name
+              input.form-control(type="text", name="name")
+            .form-group
+              label Description
+              textarea.form-control(rows="3", name="description")
+            input(type="hidden", name="group_type", value="organization")
+            button#save-org.btn.btn-primary Save
+
+  .modal.fade#addOrgMemberModal(tabindex="-1", role="dialog", aria-labelledby="addOrgMemberModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Add Member
+        .modal-body
+          form(role="form")
+            .form-group
+              label Organization
+              input.form-control(type="text", name="org", value="Massachusets Institute of Technology", disabled)
+            .form-group
+              label Username
+              input.search-username.form-control(type="text", name="name")
+            .form-group
+              label Access
+              span &nbsp;
+              include include/access-menu
+            button.save-member.btn.btn-primary Save
+
+  .modal.fade#addCourseMemberModal(tabindex="-1", role="dialog", aria-labelledby="addCourseMemberModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Add Member
+        .modal-body
+          form(role="form")
+            .form-group
+              label Organization
+              input.form-control(type="text", name="org", value="Massachusets Institute of Technology", disabled)
+            .form-group
+              label Course
+              input.form-control(type="text", name="course", value="Physics I", disabled)
+            .form-group
+              label Username
+              input.search-username.form-control(type="text", name="name")
+            .form-group
+              label Access
+              span &nbsp;
+              include include/access-menu
+            button.save-member.btn.btn-primary Save
+
+  .modal.fade#addOrgCourseModal(tabindex="-1", role="dialog", aria-labelledby="addOrgCourseModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Add Course
+        .modal-body
+          form(role="form")
+            .form-group
+              label Organization
+              input.form-control(type="text", name="org", disabled)
+            .form-group
+              label Name
+              input.form-control(type="text", name="name")
+            .form-group
+              label Description
+              textarea.form-control(rows="3", name="description")
+            input(type="hidden", name="group_type", value="organization")
+            button#save-course.btn.btn-primary Save
+
+  .modal.fade#addSectionModal(tabindex="-1", role="dialog", aria-labelledby="addSectionModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Add Section
+        .modal-body
+          form(role="form")
+            .form-group
+              label Organization
+              input.form-control(type="text", name="org", disabled)
+            .form-group
+              label Course
+              input.form-control(type="text", name="course", disabled)
+            .form-group
+              label Name
+              input.form-control(type="text", name="name")
+            .form-group
+              label Start Date
+              input.form-control(type="text", name="start_date")
+            .form-group
+              label End Date
+              input.form-control(type="text", name="end_date")
+            button#save-section.btn.btn-primary Save
+
+  .modal.fade#showSectionModal(tabindex="-1", role="dialog", aria-labelledby="showSectionModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Physics I - Semestre I / 2013
+        .modal-body
+          .add-student
+            input.search-username.form-control(type="text", placeholder="Search username")
+            .btn-group.access-menu
+              button.btn.btn-default.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown") 
+                span.selected None
+                span &nbsp;
+                span.caret &nbsp;
+              ul.dropdown-menu(role="menu")
+                li
+                  a(href="#", value="Instructor") Instructor
+                li
+                  a(href="#", value="Assistant") Assistant
+                li
+                  a(href="#", value="Student") Student
+            a.btn.btn-primary.btn-sm#add-section-member(href="") Add Member
+
+          table.table.hide
+            tr.header
+              th
+              th Name
+              th Access
+            tr.layout
+              td 
+                input(type="checkbox")
+              td.name Santiago
+              td.access
+                .btn-group.access-menu
+                  button.btn.btn-default.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown") 
+                    span.selected None
+                    span &nbsp;
+                    span.caret &nbsp;
+                  ul.dropdown-menu(role="menu")
+                    li
+                      a(href="#", value="Instuctor") Instuctor
+                    li
+                      a(href="#", value="Assistant") Assistant
+                    li
+                      a(href="#", value="Student") Student
+block javascripts
+  script(type="text/javascript", src="/assets/javascripts/thirdparty/typeahead.min.js")
+  script(type="text/javascript", src="/assets/javascripts/thirdparty/bootstrap-datepicker.js")
+  script(type="text/javascript", src="/assets/javascripts/app.js")

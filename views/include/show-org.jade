@@ -1,0 +1,61 @@
+.panel.panel-default#show-org
+  .panel-heading
+    span.badge.pull-right
+    h4 
+      span.title Massachusetts Institute of Technology
+      span &nbsp;
+      span.orgs-label
+        span [&nbsp;
+        a(href="/") Organizations
+        span &nbsp;]
+  .panel-body
+    ul.nav.nav-tabs
+      li.active
+        a(href="#org-members", data-toggle="tab") Members
+      li
+        a(href="#org-courses", data-toggle="tab") Courses
+
+    .tab-content
+      .tab-pane.active#org-members
+        a.btn.btn-primary.btn-sm(data-toggle="modal", href="#addOrgMemberModal") Add Member
+
+        table.table.hide
+          tr.header
+            th
+            th Name
+            th Access
+          tr.layout
+            td 
+              input(type="checkbox")
+            td.name Santiago
+            td.access
+              .btn-group.access-menu
+                button.btn.btn-default.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown") 
+                  span.selected None
+                  span &nbsp;
+                  span.caret &nbsp;
+                ul.dropdown-menu.access-menu(role="menu")
+                  li
+                    a(href="#", value="none") None
+                  li
+                    a(href="#", value="admin") Admin
+                  li
+                    a(href="#", value="edit") Edit
+                  li
+                    a(href="#", value="view") View
+
+
+      .tab-pane#org-courses
+        a.btn.btn-primary.btn-sm(data-toggle="modal", href="#addOrgCourseModal") Add Course
+
+        table.table.hide
+          tr.header
+            th
+            th Name
+            // th Topics
+          tr.layout
+            td 
+              input(type="checkbox")
+            td.name 
+              a(href="#") Introduction to Quantum Mechanics
+            // td Physics

@@ -1,0 +1,14 @@
+{
+  "name": "kabam-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "kabam": "mykabam/kabam"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.0",
+    "chai": "*"
+  },
+  "resolutions": {
+    "angular": "~1.2"
+  }
+}

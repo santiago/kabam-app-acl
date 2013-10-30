@@ -1,0 +1,51 @@
+.panel.panel-default#show-course
+  .panel-heading
+    span.badge.pull-right
+    h4 
+      span.title Introduction to Quantum Mechanics
+      span &nbsp;
+      span.course-label
+        span [&nbsp;
+        a.org(href="/") Massachusetts Institute of Technology
+        span &nbsp;&lt;&nbsp;
+        a(href="/") Organizations
+        span &nbsp;]
+  .panel-body
+    ul.nav.nav-tabs
+      li.active
+        a(href="#course-members", data-toggle="tab") Members
+      li
+        a(href="#course-sections", data-toggle="tab") Sections
+
+    .tab-content
+      .tab-pane.active#course-members
+        a.btn.btn-primary.btn-sm(data-toggle="modal", href="#addCourseMemberModal") Add Member
+
+        table.table.hide
+          tr.header
+            th
+            th Name
+            th Access
+          tr.layout
+            td 
+              input(type="checkbox")
+            td.name Santiago
+            td.access
+              include access-menu
+
+      .tab-pane#course-sections
+        a.btn.btn-primary.btn-sm(data-toggle="modal", href="#addSectionModal") Add Section
+
+        table.table.hide
+          tr.header
+            th
+            th Name
+            th Start
+            th End
+          tr.layout
+            td 
+              input(type="checkbox")
+            td.name 
+              a(href="#") Semestre I / 2013
+            td.start 2013/10/01
+            td.end 2013/10/31

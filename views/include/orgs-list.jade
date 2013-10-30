@@ -1,0 +1,27 @@
+.panel.panel-default#orgs-list
+  .panel-heading
+    span.badge.pull-right
+    h4 Organizations
+  .panel-body
+    a.btn.btn-primary(data-toggle="modal", href="#createOrgModal") Create Org
+  .list-group
+    .list-group-item.layout
+      h5 
+        a(href="#") Massachusetts Institute of Technology
+      p.list-group-item-text.hide
+        | Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+      .filters.hide
+        p.start_date
+          span.start_date_label Start:
+          span &nbsp;
+          span.start_date_value Mon 24 June
+          span &nbsp;|&nbsp;
+        p.price 
+          span.price_label Price:
+          span &nbsp;
+          span.price_value $100
+          span &nbsp;|&nbsp;
+        p.categories
+          span.categories_label Categories:
+          span &nbsp;
+          span.categories_value Biology, Physics

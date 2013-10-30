@@ -1,0 +1,67 @@
+# WARNING: this config can contain sensitive information, do not include in version control systems
+
+# The canonical url of this host - for example, http://mykabam.herokuapp.com/
+# If no value provided, it is guessed from 'http://'+os.hostname()+':'+config.PORT+'/' in production mode
+# And in development mode it is 'http://localhost:'+config.PORT+'/'
+# Must have `/` at the end
+# HOST_URL = "http://localhost:3000/"
+
+# salt for encrypting sessions, if left false, session salt generated pseudo randomly (not recommended!)
+SECRET = false
+
+# Configuration for SMTP server for sending email. For now only the gmail is supported.
+# Example - 'mymail@gmail.com:mypassword'
+EMAIL_CONFIG = false
+
+# Boolean. Start application as a cluster with 1 node process per CPU core.
+# We recommend to enable it in staging and production.
+START_CLUSTER = false
+# Positive integer. This value allows us to limit max number of worker processes spawn by kabam.startCluster() command.
+# If this value is not set, we spawn number of workers equal to number of CPU cores
+LIMIT_WORKERS = 1
+
+#String. Path for custom static asset files (js, css, images)
+PUBLIC = "./public"
+# String. Path for custom view files (html)
+VIEWS = "./views"
+
+# Redis configuration, example "redis://usernameIgnored:someSecretPassword@redis.example.org:6739"
+# If left redis://localhost:6379 is used
+# REDIS = "redis://localhost:6379"
+
+DISABLE_CSRF = true
+
+[PASSPORT]
+# Parameters for setting OAuth authorization for github. If both are false, github authorization is disabled.
+# More information - https://github.com/settings/applications/new
+GITHUB_CLIENT_ID = false
+GITHUB_CLIENT_SECRET = false
+
+# Parameters for setting OAuth authorization for twitter. If both are false, github authorization is disabled.
+# More information - https://dev.twitter.com/apps
+TWITTER_CONSUMER_KEY = false
+TWITTER_CONSUMER_SECRET = false
+
+# Parameters for setting OAuth authorization for facebook. If both are false, github authorization is disabled.
+# More information - http://developers.facebook.com/
+FACEBOOK_APP_ID = false
+FACEBOOK_APP_SECRET = false
+
+
+[SPINE]
+DOMAINS = ["urgentTasks", "normalTasks", "lowPriorityTasks"]
+
+
+[IO]
+ENABLED = true
+# Log level for socket.io. 10 - very verbose, 1 - less verbose
+LOGLEVEL = 1
+
+
+[LOGS]
+# Boolean. Store logs in logs/ directory
+FILELOG = true
+# Boolean. Enable logging HTTP requests in mongo database
+HTTP_MONGO = true
+# Boolean. Enable logging errors in mongodb database
+ERROR_MONGO = true

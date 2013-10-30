@@ -1,0 +1,20 @@
+extends bs3-layout
+
+block head
+  link(href='/assets/stylesheets/datepicker.css', rel='stylesheet')
+  title monimus - Group Manager demo
+
+block content
+  #main.container(style="width:420px;")
+    .panel.panel-default
+      .panel-heading
+        | Login
+      .panel-body
+        form(role="form", method="POST", action="/auth/login")
+          .form-group
+            label Username
+            input.form-control(type="text", name="username")
+          .form-group
+            label Password
+            input.form-control(type="password", name="password")
+          button.save-member.btn.btn-primary Login
