@@ -7,6 +7,7 @@ exports.init = function(kabam) {
     roles: ["admin", "manager", "guest"],
     children: ["Course"],
     permissions: {
+      "addMember": ["manager"],
       "create": ["manager"],
       "edit": ["manager"],
       "participate": ["manager"],

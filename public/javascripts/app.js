@@ -25,6 +25,16 @@ jQuery(function($) {
     });
   };
 
+  function ajaxError(e, res) {
+    //callback();
+    console.log(res);
+    if(res.status === 403) {
+      alert("You're not allowed to do this!");
+    }
+  }
+
+  $(document).ajaxError(ajaxError);
+
   function capitaliseFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -62,6 +72,10 @@ jQuery(function($) {
     };
 
     this.clear();
+
+    $(document).ajaxError(function() {
+      $("#addOrgMemberModal, #addCourseMemberModal").modal("hide");
+    });
 
     $("#addOrgMemberModal, #addCourseMemberModal").each(function() {
       var $modal = $(this);
@@ -136,6 +150,10 @@ jQuery(function($) {
       return date;
     }
 
+    $(document).ajaxError(function() {
+      $("#addSectionModal").modal("hide");
+    });
+
     // Save button
     $modal.find("#save-section").click(function(e) {
       e.preventDefault();
@@ -175,8 +193,9 @@ jQuery(function($) {
 
         return true;
       })() &&
-      $.post("/api/sections", section, function(data) {
-
+      $.post("/api/sections", section, function() {
+        getCourse(null, currentCourse._id);
+        $("#addSectionModal").modal("hide");
       });
     });
 

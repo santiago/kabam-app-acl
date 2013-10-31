@@ -9,6 +9,7 @@ exports.init = function(kabam) {
     fields: ["start_date", "end_date"],
     parent: "Course",
     permissions: {
+      "addMember": ["manager"],
       "create": ["instructor"],
       "edit": ["instructor", "assistant"],
       "participate": ["instructor", "assistant", "student"],

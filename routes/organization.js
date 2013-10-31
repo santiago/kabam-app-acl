@@ -13,8 +13,12 @@ module.exports = exports = function(kabam) {
     Section: kabam.model.Section
   };
 
-  Domain.Org.restify(kabam.app);
-  Domain.Course.restify(kabam.app);
+  Domain.Org.restify(kabam.app, {
+    urlAlias: "org"
+  });
+  Domain.Course.restify(kabam.app, {
+    includeChildren: ["Section"]
+  });
   Domain.Section.restify(kabam.app);
 
   function autocompleteUsername(req, res) {
