@@ -1,7 +1,7 @@
 p{margin:0}
 ul{padding:0}
 li{display:block}
-#main{margin-top:20px;float:left;padding:20px;padding-top:10px}
+#main{margin-top:60px;padding:20px;padding-top:10px}
 .search-label{padding-top:4px;float:left}
 .search-results .results .panel-heading h4{margin:0}
 .layout{display:none}
@@ -11,4 +11,13 @@ li{display:block}
 .search-input .input-group{float:right}
 .search-input input#search{background-color:#fff !important;width:400px}
 .search-input .input-group-addon{border-right:0;font-size:12px}
-.tt-dropdown-menu{left:auto !important}
+.tt-dropdown-menu{left:auto !important;top:auto !important}
+#show-org .panel-heading .orgs-label{font-size:12px}
+#show-course .panel-heading .course-label{font-size:12px}
+#org-members,#org-courses,#course-members,#course-sections{padding:10px 5px;}
+#org-members table,#org-courses table,#course-members table,#course-sections table{margin-top:10px}
+.datepicker{z-index:2000 !important}
+#showSectionModal .add-student{margin-bottom:10px;}
+#showSectionModal .add-student input.search-username{float:left;width:65%;margin-right:5px;height:30px}
+#showSectionModal .add-student .access-menu{margin-right:5px}
+#showSectionModal .tt-dropdown-menu{top:49px !important}

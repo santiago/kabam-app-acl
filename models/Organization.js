@@ -1,6 +1,6 @@
 exports.name = "Organization";
 
-exports.initFunction = function(kabam) {
+exports.init = function(kabam) {
   var GroupFactory = kabam.groups.GroupFactory;
 
   var Organization = GroupFactory("Organization", {

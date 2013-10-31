@@ -1,6 +1,6 @@
 exports.name = "Event";
 
-exports.initFunction = function(kabam) {
+exports.init = function(kabam) {
   var ObjectId = kabam.mongoose.Schema.Types.ObjectId;
 
   var permissions = {

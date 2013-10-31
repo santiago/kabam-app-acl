@@ -1,6 +1,6 @@
 exports.name = "Section";
 
-exports.initFunction = function(kabam) {
+exports.init = function(kabam) {
   console.log("Section");
   var GroupFactory = kabam.groups.GroupFactory;
 

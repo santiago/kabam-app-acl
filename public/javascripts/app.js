@@ -45,7 +45,7 @@ jQuery(function($) {
         access: _this.selectedAccess
       };
 
-      var url = "/"+group_type+"s/"+group_id+"/members";
+      var url = "/api/"+group_type+"s/"+group_id+"/members";
 
       if(data.member_id && data.access) {
         $.post(url, data, function(res) {
@@ -94,7 +94,7 @@ jQuery(function($) {
 
     listen("show-org", function(e, id) {
       _this.selectedGroup = id;
-      _this.selectedGroupType = "org";
+      _this.selectedGroupType = "organization";
     });
 
     listen("show-course", function(e, org_id, course_id) {
@@ -175,7 +175,7 @@ jQuery(function($) {
 
         return true;
       })() &&
-      $.post("/sections", section, function(data) {
+      $.post("/api/sections", section, function(data) {
 
       });
     });
@@ -205,7 +205,7 @@ jQuery(function($) {
 
     this.show = function(id) {
       section_id = id;
-      $.get("/sections/"+section_id, function(s) {
+      $.get("/api/sections/"+section_id, function(s) {
         var title = currentCourse.data.name+" - "+s.data.name
         $modal.find("h4.modal-title").text(title);
         $modal.modal("show");
@@ -246,7 +246,7 @@ jQuery(function($) {
         }
         return true;
       })() &&
-      $.post("/sections/"+section_id+"/members", member, function(data) {
+      $.post("/api/sections/"+section_id+"/members", member, function(data) {
         _this.show(section_id);
       });
     });
@@ -279,13 +279,13 @@ jQuery(function($) {
 
   function getOrgs() {
     // List organizations
-    $.get("/organizations", function(data) {
+    $.get("/api/organizations", function(data) {
       renderOrgsList(data);
     });
   }
 
   function getOrg(id, callback) {
-    $.get("/organizations/"+id, function(data) {
+    $.get("/api/organizations/"+id, function(data) {
       currentOrg = data;
       renderOrg(data);
       callback && callback();
@@ -321,7 +321,7 @@ jQuery(function($) {
   }
 
   function getCourses(group_id) {
-    $.get("/organizations/"+group_id+"/courses", function(data) {
+    $.get("/api/organizations/"+group_id+"/courses", function(data) {
       renderCourseList(group_id, data);
     });
   }
@@ -334,7 +334,7 @@ jQuery(function($) {
     }
 
     function get() {
-      $.get("/courses/"+course_id, function(data) {
+      $.get("/api/courses/"+course_id, function(data) {
         currentCourse = data;
         renderCourse(data);
       });
@@ -351,7 +351,7 @@ jQuery(function($) {
       $row.removeClass("layout");
       $row.find(".name a")
         .text(c.name)
-        .attr("href", "#/organizations/"+group_id+"/course/"+c._id);
+        .attr("href", "#/organizations/"+group_id+"/courses/"+c._id);
       $table.append($row);
     });
     
@@ -434,7 +434,7 @@ jQuery(function($) {
     var group = {
       name: $form.find("[name=name]").val().trim(),
       description: $form.find("[name=description]").val().trim(),
-      group_type: "Org"
+      group_type: "Organization"
     };
 
     if(!group.name || !group.description || !group.group_type) {
@@ -442,7 +442,7 @@ jQuery(function($) {
       return;
     }
 
-    $.post("/organizations", group, function(data) {
+    $.post("/api/organizations", group, function(data) {
       $("#createOrgModal").modal("hide");
       getOrgs();
     });
@@ -467,9 +467,9 @@ jQuery(function($) {
       return;
     }
 
-    $.post("/courses", course, function(data) {
+    $.post("/api/courses", course, function(data) {
       $("#addOrgCourseModal").modal("hide");
-      getCourses(currentOrg._id);
+      // getCourses(currentOrg._id);
     });
   });
 
@@ -510,9 +510,9 @@ jQuery(function($) {
 
     routes: {
       "": "orgsList",
-      "orgs/:id": "showOrg",
-      "orgs/:org_id/courses": "showOrgCourses",
-      "orgs/:org_id/course/:course_id": "showCourse"
+      "organizations/:id": "showOrg",
+      "organizations/:org_id/courses": "showOrgCourses",
+      "organizations/:org_id/courses/:course_id": "showCourse"
     },
 
     orgsList: function() {
