@@ -21,4 +21,5 @@ li{display:block}
 #showSectionModal .add-student input.search-username{float:left;width:65%;margin-right:5px;height:30px}
 #showSectionModal .add-student .access-menu{margin-right:5px}
 #showSectionModal .tt-dropdown-menu{top:49px !important}
+.delete-btn{display:none;color:#f00;border-color:#f00;margin-left:5px}
 .navbar .access-menu{margin:10px 10px 0 0}

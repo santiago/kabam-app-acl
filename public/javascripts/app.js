@@ -38,6 +38,7 @@ jQuery(function($) {
   $(document).ajaxError(ajaxError);
 
   function capitaliseFirst(string) {
+    if(!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
@@ -124,6 +125,7 @@ jQuery(function($) {
     var $modal = $("#addSectionModal");
     // Date pickers for "Add Section" modal
     var datepickerOpts = {
+      autoclose: true,
       orientation: "top",
       format: "yyyy/mm/dd"
     };
@@ -329,6 +331,7 @@ jQuery(function($) {
         $row.find(".name").text(m.username);
         var role = capitaliseFirst(m.roles.shift());
         $row.find(".access-menu .selected").text(role);
+        $row.find("input[type=checkbox]").attr("_id", m._id);
         $table.append($row);
       });
       
@@ -337,6 +340,15 @@ jQuery(function($) {
 
     $("#addOrgMemberModal, #addOrgCourseModal")
       .find("form [name=org]").val(group.name);
+
+    // Delete members
+    $("#org-members").find("input[type=checkbox]").change(function() {
+      var checked = $("#org-members").find("input[type=checkbox]:checked").length;
+      if(checked > 0)
+        $("#org-members .delete-btn").show();
+      else
+        $("#org-members .delete-btn").hide();
+    });
 
     getCourses(group._id);
   }
@@ -526,6 +538,25 @@ jQuery(function($) {
     }
   });
 
+  // Delete stuff
+  $(".delete-btn.delete-members").click(function(e) {
+    e.preventDefault();
+    $(this).blur();
+
+    var members = $("input[type=checkbox]:checked").map(function() {
+      return $(this).attr("_id");
+    }).toArray();
+    
+    var url = "/api"+location.hash.replace(/#/, "")+"/members";
+    $.ajax({
+      url: url,
+      type: "DELETE",
+      data: { members: members },
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  });
 
   var Router = new (Backbone.Router.extend({
 
