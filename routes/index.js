@@ -13,6 +13,14 @@ module.exports = exports = function (kabam) {
     }
   });
 
+  kabam.app.get('/users', function(req, res) {
+    kabam.model.User.find(function(err, users) {
+      res.send(users.map(function(u) {
+        return u.username;
+      }).sort());
+    });
+  });
+
   kabam.app.get('/home', function(req, res) {
     response.render('angular/index', { layout: false });
   });

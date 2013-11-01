@@ -4,14 +4,14 @@ exports.init = function(kabam) {
   var GroupFactory = kabam.groups.GroupFactory;
 
   var Course = GroupFactory("Course", {
-    roles: ["instructor", "assistant", "student", "guest"],
-    fields: ["instructor"],
+    roles: ["admin", "manager", "member", "guest"],
     parent: "Organization",
     permissions: {
-      "addMember": ["instructor"],
-      "edit": ["instructor", "assistant"],
-      "participate": ["instructor", "assistant", "student"],
-      "view": ["instructor", "assistant", "student", "guest"],
+      "addMember": ["manager"],
+      "create": ["manager"],
+      "edit": ["manager"],
+      "participate": ["manager"],
+      "view": ["manager", "member", "guest"],
       "delete": []
     }
   });

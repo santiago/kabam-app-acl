@@ -25,11 +25,13 @@ jQuery(function($) {
     });
   };
 
-  function ajaxError(e, res) {
+  function ajaxError(e, res, req) {
     //callback();
-    console.log(res);
     if(res.status === 403) {
       alert("You're not allowed to do this!");
+      if("GET" === req.type.toUpperCase()) {
+        location.href = "/";
+      }
     }
   }
 
@@ -488,7 +490,7 @@ jQuery(function($) {
 
     $.post("/api/courses", course, function(data) {
       $("#addOrgCourseModal").modal("hide");
-      // getCourses(currentOrg._id);
+      getCourses(currentOrg._id);
     });
   });
 
