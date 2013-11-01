@@ -63,6 +63,8 @@ jQuery(function($) {
       if(data.member_id && data.access) {
         $.post(url, data, function(res) {
           _this.clear();
+          $(".modal").modal("hide");
+          reloadAccordingly();
         });
       }
     };
@@ -270,6 +272,7 @@ jQuery(function($) {
         return true;
       })() &&
       $.post("/api/sections/"+section_id+"/members", member, function(data) {
+        getCourse(currentOrg._id, currentCourse._id);
         _this.show(section_id);
       });
     });
@@ -321,22 +324,22 @@ jQuery(function($) {
 
     var $panel = $("#show-org");
     $panel.find("h4 .title").text(group.name);
-    if(members.length) {
-      var $table = $panel.find("#org-members table");
-      var $rowLayout = $table.find("tr.layout");
-      $table.find("tr:not(.header,.layout)").remove();
-      members.forEach(function(m) {
-        var $row = $rowLayout.clone();
-        $row.removeClass("layout");
-        $row.find(".name").text(m.username);
-        var role = capitaliseFirst(m.roles.shift());
-        $row.find(".access-menu .selected").text(role);
-        $row.find("input[type=checkbox]").attr("_id", m._id);
-        $table.append($row);
-      });
-      
-      $table.removeClass("hide");
-    }
+
+    var $table = $panel.find("#org-members table");
+    var $rowLayout = $table.find("tr.layout");
+    $table.find("tr:not(.header,.layout)").remove();
+    members.forEach(function(m) {
+      var $row = $rowLayout.clone();
+      $row.removeClass("layout");
+      $row.find(".name").text(m.username);
+      var role = capitaliseFirst(m.roles.shift());
+      $row.find(".access-menu .selected").text(role);
+      $row.find("input[type=checkbox]").attr("_id", m._id);
+      $table.append($row);
+    });
+    
+    $table.removeClass("hide");
+
 
     $("#addOrgMemberModal, #addOrgCourseModal")
       .find("form [name=org]").val(group.name);
@@ -368,6 +371,7 @@ jQuery(function($) {
 
     function get() {
       $.get("/api/courses/"+course_id, function(data) {
+        console.log(data);
         currentCourse = data;
         renderCourse(data);
       });
@@ -401,25 +405,33 @@ jQuery(function($) {
       .text(currentOrg.data.name)
       .attr("href", "#/organizations/"+currentOrg._id);
 
-    if(members.length) {
-      var $table = $panel.find("#course-members table");
-      var $rowLayout = $table.find("tr.layout");
-      $table.find("tr:not(.header,.layout)").remove();
-      members.forEach(function(m) {
-        var $row = $rowLayout.clone();
-        $row.removeClass("layout");
-        $row.find(".name").text(m.username);
-        var role = capitaliseFirst(m.roles.shift());
-        $row.find(".access-menu .selected").text(role);
-        $table.append($row);
-      });
-      
-      $table.removeClass("hide");
-    }
+    var $table = $panel.find("#course-members table");
+    var $rowLayout = $table.find("tr.layout");
+    $table.find("tr:not(.header,.layout)").remove();
+    members.forEach(function(m) {
+      var $row = $rowLayout.clone();
+      $row.removeClass("layout");
+      $row.find(".name").text(m.username);
+      var role = capitaliseFirst(m.roles.shift());
+      $row.find(".access-menu .selected").text(role);
+      $row.find("input[type=checkbox]").attr("_id", m._id);
+      $table.append($row);
+    });
+    
+    $table.removeClass("hide");
 
     if(data.sections.length) {
       renderSections(data.sections);
     }
+
+    // Delete members
+    $("#course-members").find("input[type=checkbox]").change(function() {
+      var checked = $("#course-members").find("input[type=checkbox]:checked").length;
+      if(checked > 0)
+        $("#course-members .delete-btn").show();
+      else
+        $("#course-members .delete-btn").hide();
+    });
 
     // Populate "Add Section" modal
     $("#addSectionModal")
@@ -538,7 +550,7 @@ jQuery(function($) {
     }
   });
 
-  // Delete stuff
+  // Delete members
   $(".delete-btn.delete-members").click(function(e) {
     e.preventDefault();
     $(this).blur();
@@ -553,10 +565,21 @@ jQuery(function($) {
       type: "DELETE",
       data: { members: members },
       success: function(data) {
-        console.log(data);
+        $(".delete-btn.delete-members").hide();
+        reloadAccordingly();
       }
     });
   });
+
+  function reloadAccordingly() {
+    if(location.hash.match("courses")) {
+      getCourse(currentOrg._id, currentCourse._id);
+      return;
+    } else if(location.hash.match("organizations")) {
+      getOrg(currentOrg._id);
+      return;
+    }
+  }
 
   var Router = new (Backbone.Router.extend({
 
